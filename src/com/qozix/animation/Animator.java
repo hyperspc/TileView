@@ -9,6 +9,7 @@ import com.qozix.animation.easing.Linear;
 
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 
 public class Animator {
 
@@ -64,7 +65,7 @@ public class Animator {
 	public void start() {
 		values.putAll(properties);
 		ellapsed = 0;
-		startTime = System.currentTimeMillis();
+		startTime = SystemClock.elapsedRealtime();
 		handler.sendEmptyMessage(0);
 		for(AnimationListener l : listeners){
 			l.onAnimationStart();
@@ -74,7 +75,7 @@ public class Animator {
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(final Message message) {
-			ellapsed = System.currentTimeMillis() - startTime;
+			ellapsed = SystemClock.elapsedRealtime() - startTime;
 			for(Map.Entry<String, Double> e : values.entrySet()) {
 				String key = e.getKey();
 				Double value = e.getValue();

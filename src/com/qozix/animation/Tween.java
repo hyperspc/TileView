@@ -2,8 +2,7 @@ package com.qozix.animation;
 
 import java.util.ArrayList;
 
-import android.os.Handler;
-import android.os.Message;
+import android.os.SystemClock;
 
 import com.qozix.animation.easing.EasingEquation;
 import com.qozix.animation.easing.Linear;
@@ -68,7 +67,7 @@ public class Tween {
 	public void start() {
 		stop();
 		ellapsed = 0;
-		startTime = System.currentTimeMillis();
+		startTime = SystemClock.elapsedRealtime();
 		for ( TweenListener l : listeners ) {
 			l.onTweenStart();
 		}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 
 public class TweenHandler extends Handler {
 
@@ -59,7 +60,7 @@ public class TweenHandler extends Handler {
 	}
 	
 	private boolean runTween( Tween tween ) {
-		double ellapsed = System.currentTimeMillis() - tween.getStartTime();
+		double ellapsed = SystemClock.elapsedRealtime() - tween.getStartTime();
 		ellapsed = Math.min( ellapsed, tween.getDuration() );
 		tween.setEllapsed( ellapsed );
 		double progress = tween.getProgress();
