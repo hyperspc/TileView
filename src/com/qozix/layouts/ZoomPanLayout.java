@@ -472,7 +472,7 @@ public class ZoomPanLayout extends ViewGroup {
 	}
 
 
-	private void updateClip() {
+	protected void updateClip() {
 		updateViewClip( clip );
 		for ( int i = 0; i < clip.getChildCount(); i++ ) {
 			View child = clip.getChildAt( i );

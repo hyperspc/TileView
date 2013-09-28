@@ -107,7 +107,6 @@ public class TileView extends ZoomPanLayout
         this.addGestureListener(this.gestureListener);
 
         this.requestRender();
-
     }
 
     //------------------------------------------------------------------------------------
@@ -1375,6 +1374,51 @@ public class TileView extends ZoomPanLayout
     public PathManager getPathManager()
     {
         return this.pathManager;
+    }
+
+    public TileManager getTileManager()
+    {
+        return this.tileManager;
+    }
+
+    public HashSet<TileViewEventListener> getTileViewEventListeners()
+    {
+        return this.tileViewEventListeners;
+    }
+
+    public DetailManager getDetailManager()
+    {
+        return this.detailManager;
+    }
+
+    public HotSpotManager getHotSpotManager()
+    {
+        return this.hotSpotManager;
+    }
+
+    public SampleManager getSampleManager()
+    {
+        return this.sampleManager;
+    }
+
+    public MarkerManager getMarkerManager()
+    {
+        return this.markerManager;
+    }
+
+    public CalloutManager getCalloutManager()
+    {
+        return this.calloutManager;
+    }
+
+    public ZoomPanListener getZoomPanListener()
+    {
+        return this.zoomPanListener;
+    }
+
+    public TileRenderListener getRenderListener()
+    {
+        return this.renderListener;
     }
 
 }
