@@ -41,7 +41,7 @@ public class PathManager extends StaticLayout {
 
 	private DetailManager detailManager;
 
-	private Path drawingPath = new Path();
+	private Path translatedPath = new Path();
 	private Matrix matrix = new Matrix();
 
 	private ArrayList<DrawablePath> paths = new ArrayList<DrawablePath>();
@@ -60,16 +60,20 @@ public class PathManager extends StaticLayout {
 		return addPath( points, defaultPaint );
 	}
 
+	public Path getPathFromPoints(List<Point> points) {
+        Path path = new Path();
+        Point start = points.get(0);
+        path.moveTo((float) start.x, (float) start.y);
+        int l = points.size();
+        for (int i = 1; i < l; i++) {
+            Point point = points.get(i);
+            path.lineTo((float) point.x, (float) point.y);
+        }
+        return path;
+	}
+	
 	public DrawablePath addPath( List<Point> points, Paint paint ) {
-		Path path = new Path();
-		Point start = points.get( 0 );
-		path.moveTo( (float) start.x, (float) start.y );
-		int l = points.size();
-		for ( int i = 1; i < l; i++ ) {
-			Point point = points.get( i );
-			path.lineTo( (float) point.x, (float) point.y );
-		}
-		return addPath( path, paint );
+		return addPath( getPathFromPoints(points), paint );
 	}
 
 	public DrawablePath addPath( Path path, Paint paint ) {
@@ -110,11 +114,13 @@ public class PathManager extends StaticLayout {
 			float scale = (float) detailManager.getScale();
 			matrix.setScale( scale, scale );
 			for ( DrawablePath drawablePath : paths ) {
-				drawingPath.set( drawablePath.path );
-				drawingPath.transform( matrix );
-				if ( !canvas.quickReject( drawingPath, Canvas.EdgeType.BW ) ) {
-					canvas.drawPath( drawingPath, drawablePath.paint );
-				}
+				translatedPath.set( drawablePath.path );
+				translatedPath.transform( matrix );
+				drawablePath.draw(canvas, translatedPath);
+				
+//				if ( !canvas.quickReject( drawingPath, Canvas.EdgeType.BW ) ) {
+//					canvas.drawPath( drawingPath, drawablePath.paint );
+//				}
 			}
 		}
 		super.onDraw( canvas );
